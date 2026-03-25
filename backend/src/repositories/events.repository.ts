@@ -12,7 +12,6 @@ const createEvent = async (eventData: createEventSchemaType, userId: string) => 
     const { tags, ...eventPayload } = eventData;
     const eventFieldData = { created_by: userId, ...eventPayload };
 
-    // Check for duplicate event
     const existingEvent = await db("events").where({
         title: eventPayload.title,
         description: eventPayload.description,
