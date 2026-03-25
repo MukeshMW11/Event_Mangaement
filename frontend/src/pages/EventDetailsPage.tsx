@@ -119,12 +119,12 @@ const EventDetailsPage = () => {
                         {event.event_type}
                     </Badge>
                     {isOwner && (
-                        <div className="hidden items-center gap-2 sm:flex">
+                        <div className=" items-center gap-2 flex justify-center">
                             <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setIsEditModalOpen(true)}
-                                className="gap-1.5"
+                                className="gap-1.5 flex "
                             >
                                 <Edit className="w-3.5 h-3.5" />
                                 Edit
@@ -153,7 +153,6 @@ const EventDetailsPage = () => {
                 </div>
             </div>
 
-            {/* Top stats row */}
             <div className="grid w-full gap-3 sm:grid-cols-3">
                 <Card className="w-full">
                     <CardContent className="p-4">
@@ -181,7 +180,6 @@ const EventDetailsPage = () => {
                 </Card>
             </div>
 
-            {/* Details */}
             <Card className="w-full shadow-sm">
                 <CardHeader className="space-y-2">
                     <CardTitle className="text-lg">Event Details</CardTitle>

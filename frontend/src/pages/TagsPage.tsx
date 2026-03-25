@@ -114,7 +114,6 @@ const TagsPage = () => {
                                 </p>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                {/* Toolbar */}
                                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                     <div className="flex w-full items-center gap-2 sm:max-w-md">
                                         <Input
@@ -144,7 +143,6 @@ const TagsPage = () => {
                                     </Button>
                                 </div>
 
-                                {/* Table */}
                                 <div className="overflow-hidden border border-border bg-background">
                                     <table className="w-full text-sm text-foreground">
                                         <thead className="bg-muted/40">
