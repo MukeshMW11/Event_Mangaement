@@ -26,20 +26,16 @@ const EventDetailsPage = () => {
     const isOwner = event && user && event.created_by === user.id;
 
     const handleEdit = async (values: createEventSchemaType) => {
-        try {
-            await updateEventMutation.mutateAsync(values);
-            toast.success("Event updated successfully!");
-            setIsEditModalOpen(false);
-        } catch (error) {
-            toast.error("Failed to update event");
-        }
+        await updateEventMutation.mutateAsync(values);
+        toast.success("Event updated successfully!");
+        setIsEditModalOpen(false);
     };
 
     const handleDelete = async () => {
         try {
             await deleteEventMutation.mutateAsync(id!);
             toast.success("Event deleted successfully!");
-            navigate("/");
+            navigate("/dashboard");
         } catch (error) {
             toast.error("Failed to delete event");
         }

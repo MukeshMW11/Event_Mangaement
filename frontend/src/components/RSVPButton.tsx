@@ -24,7 +24,7 @@ export const RSVPButton = ({ eventId, currentRsvp }: RSVPButtonProps) => {
             await rsvpMutation.mutateAsync(status);
             toast.success(`You have RSVP'd as ${status === "yes" ? "Going" : status === "maybe" ? "Maybe" : "Not Going"}`);
         } catch (error: any) {
-            toast.error(error?.response?.data?.message || "Failed to RSVP");
+            // toast.error(error?.response?.data?.message || "Failed to RSVP");
         }
     };
 

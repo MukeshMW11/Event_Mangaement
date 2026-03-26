@@ -15,8 +15,11 @@ const getRsvpsEvent = async (eventId: string) => {
 
 const rsvpsEvent = async (eventId: string, userId: string, status: RSVPStatus) => {
     const event = await eventRepositories.eventDetails(eventId);
+    const eventDate = event.event_date;
+    const currentDateTime = Date.now();
+    if (currentDateTime > eventDate) throw new AppError("Cannot respond to the past event", 400);
     if (!event) throw new AppError("Related Event not found", 404);
-    const rsvp = await rsvpsRepositories.rsvpsEvent({eventId, userId, status});
+    const rsvp = await rsvpsRepositories.rsvpsEvent({ eventId, userId, status });
     return rsvp;
 
 };

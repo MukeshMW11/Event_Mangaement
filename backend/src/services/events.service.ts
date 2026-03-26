@@ -10,13 +10,13 @@ const createEvent = async (eventData: createEventSchemaType, userId: string) => 
     return event;
 };
 
-const getEvents = async (filter: filterType,userId?:string) => {
-    const events = await eventRepositories.getEvents(filter,userId);
+const getEvents = async (filter: filterType, userId?: string) => {
+    const events = await eventRepositories.getEvents(filter, userId);
     return events;
 };
 
-const eventDetails = async (eventId: string,userId?:string) => {
-    const event = await eventRepositories.eventDetails(eventId,userId);
+const eventDetails = async (eventId: string, userId?: string) => {
+    const event = await eventRepositories.eventDetails(eventId, userId);
     if (!event) throw new AppError("Event not found", 404);
     if (event.event_type === "private" && event.created_by !== userId) {
         throw new AppError("You are not authorized to view this event", 403);
@@ -32,6 +32,13 @@ const updateEvent = async (eventId: string, eventData: editEventSchemaType, user
     if (eventCheck.created_by !== userId) {
         throw new AppError("You are not authorized to update this event", 403);
     }
+
+    
+    const eventDate = eventCheck.event_date;
+    const currentDateTime = Date.now();
+    if (currentDateTime > eventDate) throw new AppError("Cannot edit the past event", 400);
+
+    
     const event = await eventRepositories.updateEvent(eventId, eventData);
     if (!event) throw new AppError("Event cannot be updated", 404);
     return event;
