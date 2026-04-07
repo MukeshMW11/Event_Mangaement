@@ -113,5 +113,10 @@ const getCurrentUser = async (req: UserAuthRequest, res: Response, next: NextFun
     } catch (error) {
         next(error);
     }
-}
-export const authController = { authLoginController, authRegisterController, authRefreshTokenController, authLogoutController,getCurrentUser };
+};
+
+
+
+
+
+export const authController = { authLoginController, authRegisterController, authRefreshTokenController, authLogoutController, getCurrentUser };
