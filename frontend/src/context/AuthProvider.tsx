@@ -16,11 +16,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         let isMounted = true;
         const checkAtuh = async () => {
+
             try {
                 const res = await axiosInstance.get("/auth/me");
                 if (isMounted) setUser(res?.data?.user);
-            } catch (err) {
-                console.error("The check auth error is", err);
+            } catch {
                 if (isMounted) setUser(null)
             }
             finally {

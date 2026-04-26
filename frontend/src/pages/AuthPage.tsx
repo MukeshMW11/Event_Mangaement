@@ -29,7 +29,7 @@ export function AuthForm({ isRegister = false }: AuthFormProps) {
                 navigate("/");
             }
         } catch (error) {
-        console.log("error");
+            console.log("error");
         }
     };
 
@@ -62,7 +62,13 @@ export function AuthForm({ isRegister = false }: AuthFormProps) {
                             text={isRegister ? "Create account" : "Sign in"}
                         />
                     </FormWrapper>
-
+                    {!isRegister && (
+                        <div className="w-full text-center">
+                            <Link to="/verify-email" className="text-sm font-medium underline-offset-4 hover:underline text-foreground">
+                                Verify your email
+                            </Link>
+                        </div>
+                    )}
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
                             <span className="w-full border-t border-border" />

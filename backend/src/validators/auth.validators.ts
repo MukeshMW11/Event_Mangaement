@@ -12,9 +12,14 @@ const loginSchema = z.object({
     password: z.string().min(6),
 });
 
+const emailVerificationSchema = z.object({
+    email: z.string().email().trim().toLowerCase(),
+});
+
 
 type loginType = z.infer<typeof loginSchema>;
 type registerType = z.infer<typeof registerSchema>;
+type emailVerificationType = z.infer<typeof emailVerificationSchema>;
 
-export type { loginType, registerType };
-export { registerSchema, loginSchema};
+export type { loginType, registerType, emailVerificationType };
+export { registerSchema, loginSchema, emailVerificationSchema };

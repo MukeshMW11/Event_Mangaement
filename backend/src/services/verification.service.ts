@@ -2,18 +2,20 @@ import { authRepositories } from "../repositories/auth.repository.js";
 import { verificationRepositories } from "../repositories/verification.repositories.js";
 import AppError from "../utils/AppError.js";
 import { forgetPassword, transporter, verifyEmail } from "../utils/index.js";
+import envVariables from "../config/env.js";
 import crypto from "crypto";
+
 
 const sendVerificationEmail = async (email: string, token: string) => {
     const validUser = await authRepositories.findUserByEmailRepository(email);
-    if (!validUser) throw new AppError("User with this email does not exist", 404);
+    if (!validUser) throw new AppError("Email is sent if an email exists", 200);
 
     if (validUser.verified_at) throw new AppError("Email is already verified", 400);
 
-    const link = `${process.env.APP_BASE_URL}/verify-email?token=${token}`;
-
+    const link = `${envVariables.app_base_url}/verification/verify-email?token=${token}`;
+    if (!transporter) throw new AppError("Email service is not available", 503);
     await transporter.sendMail({
-        from: "Event Management <abc@gmail.com>",
+        from: `Event Management <${envVariables.gmail_address}>`,
         to: email,
         subject: "Email Verification",
         html: verifyEmail(link)
@@ -24,17 +26,17 @@ const sendPasswordResetEmail = async (email: string, token: string) => {
     const validUser = await authRepositories.findUserByEmailRepository(email);
     if (!validUser) throw new AppError("User with this email does not exist", 404);
 
-    const link = `${process.env.APP_BASE_URL}/reset-password?token=${token}`;
-
+    const link = `${envVariables.app_base_url}/reset-password?token=${token}`;
+    if (!transporter) throw new AppError("Email service is not available", 503);
     await transporter.sendMail({
-        from: "Event Management <abc@gmail.com",
+        from: `Event Management <${envVariables.gmail_address}>`,
         to: email,
         subject: "Password Reset",
         html: forgetPassword(link),
     });
 }
 
-const generateVerficationToken = async (email: string) => {
+const generateVerificationToken = async (email: string) => {
     const validUser = await authRepositories.findUserByEmailRepository(email);
     if (!validUser) throw new AppError("User with this email does not exist", 404);
 
@@ -63,9 +65,9 @@ const consumeVerificationToken = async (token: string) => {
 };
 
 
-const markVerfied = async (userId: number) => {
+const markVerified = async (userId: number) => {
     await verificationRepositories.markEmailAsVerified(userId);
 };
 
 
-export const verificationService = { sendVerificationEmail, generateVerficationToken, consumeVerificationToken, sendPasswordResetEmail, markVerfied };
+export const verificationService = { sendVerificationEmail, generateVerificationToken, consumeVerificationToken, sendPasswordResetEmail, markVerified };

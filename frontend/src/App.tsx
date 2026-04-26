@@ -6,6 +6,7 @@ import EventDetailsPage from './pages/EventDetailsPage';
 import { AuthForm } from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import TagsPage from './pages/TagsPage';
+import VerifyEmail from './form/VerifyEmail';
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path='/events/:id' element={<EventDetailsPage />} />
       <Route path='/login' element={<AuthForm />} />
       <Route path='/register' element={<AuthForm isRegister={true} />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
       <Route element={<PrivateRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/dashboard/tags" element={<TagsPage />} />

@@ -63,7 +63,6 @@ axiosInstance.interceptors.response.use(
         }
 
         const message = error?.response?.data.message || "Something went wrong";
-        console.log("interceptor error:", error?.response?.data);
         toast.error(message);
         return Promise.reject(error);
     }

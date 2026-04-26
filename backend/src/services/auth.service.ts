@@ -12,7 +12,9 @@ const authLoginService = async (data: loginType) => {
     if (!isPasswordValid) {
         throw new AppError("Invalid credentials", 401);
     }
-
+    if (user.verified_at === null) {
+        throw new AppError("Please verify your email", 403);
+    }
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
     const { password: _, ...safeUser } = user;
@@ -42,4 +44,4 @@ const authRegisterService = async (data: registerType) => {
 
 
 
-export const authServices =  { authLoginService, authRegisterService };
+export const authServices = { authLoginService, authRegisterService };

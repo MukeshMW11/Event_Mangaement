@@ -8,7 +8,7 @@ const createEvent = async (req: AuthRequest, res: Response, next: NextFunction) 
     try {
         const userId = req.user!.userId;
         const event = await eventServices.createEvent(req.body, userId);
-        req.log.info({ event: event }, "Event created successfully");
+        req.log.info({ event: event.id }, "Event created successfully");
         return res.status(201).json({ message: "Event created successfully", data: event });
     } catch (error) {
         next(error);
@@ -49,7 +49,7 @@ const eventDetails = async (req: AuthRequest, res: Response, next: NextFunction)
     try {
         const eventId = req.params.eventId as string;
         const event = await eventServices.eventDetails(eventId, userId);
-        req.log.info({ event: event }, "Event fetched successfully");
+        req.log.info({ event: event.id }, "Event fetched successfully");
         return res.status(200).json({ message: "Event fetched successfully", data: event });
     } catch (error) {
         next(error);
@@ -63,7 +63,7 @@ const updateEvent = async (req: AuthRequest, res: Response, next: NextFunction) 
     try {
         const eventId = req.params.eventId as string;
         const event = await eventServices.updateEvent(eventId, req.body, userId);
-        req.log.info({ event: event }, "Event updated successfully");
+        req.log.info({ event: event.id }, "Event updated successfully");
         return res.status(200).json({ message: "Event updated successfully", data: event });
 
     } catch (error) {
@@ -79,7 +79,7 @@ const deleteEvent = async (req: AuthRequest, res: Response, next: NextFunction) 
     try {
         const eventId = req.params.eventId as string;
         const event = await eventServices.deleteEvent(eventId, userId);
-        req.log.info({ event: event }, "Event deleted successfully");
+        req.log.info({ event: event.id }, "Event deleted successfully");
         return res.status(204).send();
 
     } catch (error) {

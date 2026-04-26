@@ -1,5 +1,5 @@
-import { registerSchema,loginSchema } from "./auth.validators.js";
-import type {loginType,registerType } from "./auth.validators.js";
+import { registerSchema, loginSchema, emailVerificationSchema } from "./auth.validators.js";
+import type { loginType, registerType, emailVerificationType } from "./auth.validators.js";
 
-export type { loginType, registerType };
-export {registerSchema, loginSchema, };
+export type { loginType, registerType, emailVerificationType };
+export { registerSchema, loginSchema, emailVerificationSchema };
