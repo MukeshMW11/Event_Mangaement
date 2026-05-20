@@ -30,7 +30,7 @@ const authRegisterService = async (data: registerType) => {
     }
     const hashedPassword = await hashPassword(data.password);
     try {
-        const user = await authRepositories.authRegisterRepository({ ...data, password: hashedPassword });
+        const user = await authRepositories.authRegisterRepository({ name: data.name, email: data.email, password: hashedPassword });
         return user;
     }
     catch (error: any) {

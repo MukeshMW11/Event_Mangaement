@@ -13,9 +13,11 @@ const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
         await verificationService.markVerified(userId);
 
         const loginPageUrl = `${frontendLoginUrl}/login`;
+        req.log.info({ req }, "Email verified successfully");
 
         return res.status(200).send(emailVerificationSuccess(loginPageUrl));
     } catch (error) {
+        req.log.error({ error }, "Failed to verify email");
         next(error);
     }
 };
