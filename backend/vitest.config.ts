@@ -1,5 +1,4 @@
 import { defineConfig } from "vitest/config";
-import { includes } from "zod";
 
 export default defineConfig({
   test: {
@@ -19,5 +18,9 @@ export default defineConfig({
       }
     ],
     setupFiles: [],
+    coverage: {
+      provider: "v8",
+      include: ["./src/**/*.ts"]
+    }
   }
 })
