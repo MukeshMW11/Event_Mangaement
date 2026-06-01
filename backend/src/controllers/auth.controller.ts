@@ -43,25 +43,11 @@ const authRegisterController = async (req: Request, res: Response, next: NextFun
 
 const authRefreshTokenController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { refreshToken } = req.cookies;
+        const { refreshToken } = req.cookies ?? {};
         if (!refreshToken) {
             return res.status(401).json({ message: "Refresh token not found" });
         }
-        let payload: JwtPayload | string;
-        try {
-
-            payload = verifyRefreshToken(refreshToken);
-        }
-        catch (error) {
-            req.log.error("Error occurred while verifying refresh token");
-            return res.status(401).json({ message: "Invalid refresh token" });
-        }
-        const { userId } = payload as JwtPayload & { userId: string };
-        if (!userId) {
-            req.log.error("User ID not found in refresh token payload");
-            return res.status(401).json({ message: "Invalid refresh token payload" });
-        }
-        const newAccessToken = generateAccessToken(userId);
+        const { newAccessToken, userId } = await authServices.authRefreshTokenService(refreshToken);
         res.cookie("accessToken", newAccessToken, {
             httpOnly: true,
             secure: node_env === "production",

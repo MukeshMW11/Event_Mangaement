@@ -11,7 +11,7 @@ const errorMiddleware = (error: any, req: Request, res: Response, next: NextFunc
 
     if (error instanceof AppError) {
         req.log.warn({ err: error }, error.message);
-        return res.status(error.statusCode).json({ message: error.message || "" })
+        return res.status(error.statusCode).json({ message: error.message || "" });
     }
 
 
